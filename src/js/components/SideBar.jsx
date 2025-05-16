@@ -3,9 +3,9 @@ import React from "react";
 const SideBar = () => {
   return (
     <>
-      <h2>Menu</h2>
+      <h6>Menu</h6>
       <hr></hr>
-      <h4>DashBoard</h4>
+      <p>DashBoard</p>
     </>
   );
 };

@@ -1,3 +1,50 @@
 body {
-  background-color: black;
+  background-color: #111111;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.container-fluid,
+.row,
+.dashboard {
+  height: 100%;
+}
+
+.bg-dashboard {
+  background-color: #131519;
+}
+
+.bg-card {
+  background-color: #181b23;
+}
+
+.bg-plus-button {
+  background-color: #242529;
+}
+
+.btn-mine {
+  border: none;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.interactive:hover {
+  transform: scale(1.1);
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100vh;
+  gap: 1rem;
+}
+
+.side-bar {
+  width: 80px;
+  min-width: 80px;
 }
