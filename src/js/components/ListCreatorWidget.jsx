@@ -18,7 +18,7 @@ const ListCreatorWidget = ({ _setNewElementList }) => {
           }}
         ></input>
         <button
-          className="bg-plus-button btn-mine rounded-2 text-light p-1"
+          className="interactive bg-plus-button btn-mine rounded-2 text-light p-1"
           onClick={() => {
             _setNewElementList(listName);
           }}

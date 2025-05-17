@@ -5,7 +5,7 @@ const SideBar = () => {
     <>
       <h6>Menu</h6>
       <hr></hr>
-      <p>DashBoard</p>
+      <p className="text-secondary">DashBoard</p>
     </>
   );
 };

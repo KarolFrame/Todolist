@@ -19,6 +19,10 @@ body {
   background-color: #181b23;
 }
 
+.bg-task {
+  background-color: #0e1012;
+}
+
 .bg-plus-button {
   background-color: #242529;
 }
@@ -32,7 +36,7 @@ body {
 }
 
 .interactive:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .dashboard {

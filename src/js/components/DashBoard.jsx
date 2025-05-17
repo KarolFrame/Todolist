@@ -8,14 +8,28 @@ const DashBoard = () => {
   const [listLists, setListLists] = useState([]);
 
   const _setNewElementList = (newList) => {
-    setListLists([...listLists, newList]);
-    setShowCreatorWidget(false);
+    if (newList != "") {
+      setListLists([...listLists, newList]);
+      setShowCreatorWidget(false);
+      return;
+    }
+    alert("list name empty");
+  };
+
+  const _deleteList = (key) => {
+    const newArrayList = listLists.filter((_, index) => index !== key);
+    setListLists(newArrayList);
   };
 
   return (
     <div className="bg-dashboard d-flex d-row align-items-start dashboard">
       {listLists.map((list, index) => (
-        <ListElement key={index} nameList={list} />
+        <ListElement
+          key={index}
+          nameList={list}
+          _deleteList={_deleteList}
+          id={index}
+        />
       ))}
       {showCreatorWidget && (
         <ListCreatorWidget _setNewElementList={_setNewElementList} />

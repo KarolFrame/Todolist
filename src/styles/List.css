@@ -5,3 +5,12 @@
   flex: 0 0 auto;
   min-width: 230px;
 }
+
+.card {
+  max-height: 90vh;
+}
+
+.delete-button {
+  width: 20px;
+  height: 20px;
+}

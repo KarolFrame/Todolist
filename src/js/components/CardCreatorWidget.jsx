@@ -7,11 +7,11 @@ const CardCreatorWidget = ({ _setNewCardList }) => {
   const [cardDescription, setCardDescription] = useState("");
   return (
     <>
-      <div className="list p-3 rounded-3">
+      <div className="p-3 rounded-3 bg-task mt-3">
         <input
           className="mb-2 rounded-2"
           type="text"
-          placeholder="Introduce card list..."
+          placeholder="Introduce task title..."
           value={cardName}
           onChange={(e) => {
             setCardName(e.target.value);
@@ -19,8 +19,8 @@ const CardCreatorWidget = ({ _setNewCardList }) => {
         ></input>
         <input
           className="mb-2 rounded-2"
-          type="text"
-          placeholder="Introduce card list..."
+          type="date"
+          placeholder="Introduce date..."
           value={cardDate}
           onChange={(e) => {
             setCardDate(e.target.value);
@@ -29,7 +29,7 @@ const CardCreatorWidget = ({ _setNewCardList }) => {
         <input
           className="mb-2 rounded-2"
           type="text"
-          placeholder="Introduce card list..."
+          placeholder="Introduce description..."
           value={cardDescription}
           onChange={(e) => {
             setCardDescription(e.target.value);

@@ -4,18 +4,21 @@ import "../../styles/index.css";
 import Card from "./Card";
 import CardCreatorWidget from "./CardCreatorWidget";
 
-const ListElement = ({ nameList }) => {
+const ListElement = ({ nameList, _deleteList, id }) => {
   const [name, setName] = useState({ name: "", date: "", desciption: "" });
   const [cardsList, setcardsList] = useState([]);
   const [showCreatorWidget, setShowCreatorWidget] = useState(false);
 
   const _setNewCardList = (cardName, cardDate, cardDescription) => {
-    setcardsList([
-      ...cardsList,
-      { name: cardName, date: cardDate, desciption: cardDescription },
-    ]);
-    console.log(cardsList);
-    setShowCreatorWidget(false);
+    if (cardName != "") {
+      setcardsList([
+        ...cardsList,
+        { name: cardName, date: cardDate, desciption: cardDescription },
+      ]);
+      setShowCreatorWidget(false);
+      return;
+    }
+    alert("Task title empty");
   };
 
   useEffect(() => {
@@ -24,16 +27,27 @@ const ListElement = ({ nameList }) => {
 
   return (
     <>
-      <div className="interactive list m-3 bg-card p-2 rounded-3">
-        <input
-          className="bg-transparent btn-mine rounded-2 text-light p-1"
-          type="text"
-          placeholder={name}
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        ></input>
+      <div className="list m-3 bg-card p-2 rounded-3">
+        <div className="d-flex justify-content-between">
+          <input
+            className="interactive bg-transparent btn-mine rounded-2 text-light p-1 mb-2"
+            type="text"
+            placeholder={name}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          ></input>
+          <button
+            className="interactive delete-button bg-transparent btn-mine text-secondary"
+            onClick={() => {
+              _deleteList(id);
+            }}
+          >
+            <i className="fa-solid fa-trash"></i>
+          </button>
+        </div>
+
         {cardsList.map((card, index) => {
           return (
             <Card
@@ -46,7 +60,7 @@ const ListElement = ({ nameList }) => {
         })}
         {!showCreatorWidget && (
           <button
-            className="bg-plus-button btn-mine rounded-2 text-light p-1"
+            className="interactive bg-plus-button btn-mine rounded-2 text-light p-1 mt-3"
             onClick={() => {
               setShowCreatorWidget(true);
             }}
