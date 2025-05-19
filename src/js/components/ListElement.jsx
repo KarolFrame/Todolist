@@ -4,22 +4,9 @@ import "../../styles/index.css";
 import Card from "./Card";
 import CardCreatorWidget from "./CardCreatorWidget";
 
-const ListElement = ({ nameList, _deleteList, id }) => {
+const ListElement = ({ nameList, _deleteList, id, card, _setNewCardList }) => {
   const [name, setName] = useState({ name: "", date: "", desciption: "" });
-  const [cardsList, setcardsList] = useState([]);
   const [showCreatorWidget, setShowCreatorWidget] = useState(false);
-
-  const _setNewCardList = (cardName, cardDate, cardDescription) => {
-    if (cardName != "") {
-      setcardsList([
-        ...cardsList,
-        { name: cardName, date: cardDate, desciption: cardDescription },
-      ]);
-      setShowCreatorWidget(false);
-      return;
-    }
-    alert("Task title empty");
-  };
 
   useEffect(() => {
     setName(nameList);
@@ -48,13 +35,13 @@ const ListElement = ({ nameList, _deleteList, id }) => {
           </button>
         </div>
 
-        {cardsList.map((card, index) => {
+        {card.map((card, index) => {
           return (
             <Card
               key={index}
               title={card.name}
               date={card.date}
-              description={card.desciption}
+              description={card.description}
             />
           );
         })}
@@ -69,7 +56,12 @@ const ListElement = ({ nameList, _deleteList, id }) => {
           </button>
         )}
         {showCreatorWidget && (
-          <CardCreatorWidget _setNewCardList={_setNewCardList} />
+          <CardCreatorWidget
+            _setNewCardList={(cardName, cardDate, cardDescription) => {
+              _setNewCardList(cardName, cardDate, cardDescription, id);
+              setShowCreatorWidget(false);
+            }}
+          />
         )}
       </div>
     </>

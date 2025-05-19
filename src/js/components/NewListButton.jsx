@@ -4,9 +4,9 @@ import "../../styles/index.css";
 
 const NewListButton = ({ setShowCreatorWidget }) => {
   return (
-    <div className="interactive list m-3 bg-card p-2 rounded-3">
+    <div className="list m-3 bg-card p-2 rounded-3">
       <button
-        className="bg-transparent btn-mine rounded-2 text-light p-1"
+        className="interactive bg-transparent btn-mine rounded-2 text-light p-1"
         onClick={() => {
           setShowCreatorWidget(true);
         }}
