@@ -3,8 +3,16 @@ import "../../styles/List.css";
 import "../../styles/index.css";
 import Card from "./Card";
 import CardCreatorWidget from "./CardCreatorWidget";
+import { Droppable } from "react-beautiful-dnd";
 
-const ListElement = ({ nameList, _deleteList, id, card, _setNewCardList }) => {
+const ListElement = ({
+  nameList,
+  _deleteList,
+  id,
+  card,
+  _setNewCardList,
+  index,
+}) => {
   const [name, setName] = useState({ name: "", date: "", desciption: "" });
   const [showCreatorWidget, setShowCreatorWidget] = useState(false);
 
@@ -34,17 +42,25 @@ const ListElement = ({ nameList, _deleteList, id, card, _setNewCardList }) => {
             <i className="fa-solid fa-trash"></i>
           </button>
         </div>
-
-        {card.map((card, index) => {
-          return (
-            <Card
-              key={index}
-              title={card.name}
-              date={card.date}
-              description={card.description}
-            />
-          );
-        })}
+        <Droppable droppableId={id} index={index}>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {card.map((card, index) => {
+                return (
+                  <Card
+                    key={card.id}
+                    index={index}
+                    title={card.name}
+                    date={card.date}
+                    description={card.description}
+                    id={card.id}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         {!showCreatorWidget && (
           <button
             className="interactive bg-plus-button btn-mine rounded-2 text-light p-1 mt-3"
