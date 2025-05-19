@@ -2,14 +2,29 @@ import ListCreatorWidget from "./ListCreatorWidget";
 import NewListButton from "./NewListButton";
 import React, { useState } from "react";
 import ListElement from "./ListElement";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { v4 as uuid } from "uuid";
 
 const DashBoard = () => {
   const [showCreatorWidget, setShowCreatorWidget] = useState(false);
   const [listLists, setListLists] = useState([]);
 
+  const onDragEnd = (res) => {
+    const { destination, source, type } = res;
+
+    if (!destination) return;
+
+    if (type === "COLUMN") {
+      const items = Array.from(listLists);
+      const [moved] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, moved);
+      setListLists(items);
+    }
+  };
+
   const _setNewElementList = (newList) => {
     if (newList != "") {
-      setListLists([...listLists, { name: newList, cards: [] }]);
+      setListLists([...listLists, { id: uuid(), name: newList, cards: [] }]);
       setShowCreatorWidget(false);
       return;
     }
@@ -17,27 +32,22 @@ const DashBoard = () => {
   };
 
   const _deleteList = (key) => {
-    const newArrayList = listLists.filter((_, index) => index !== key);
+    const newArrayList = listLists.filter((list) => list.id !== idToDelete);
     setListLists(newArrayList);
   };
 
-  const _setNewCardList = (cardName, cardDate, cardDescription, listIndex) => {
+  const _setNewCardList = (cardName, cardDate, cardDescription, listId) => {
     if (cardName !== "") {
       const updatedLists = [...listLists];
-      const listToUpdate = updatedLists[listIndex];
+      const index = updatedLists.findIndex((list) => list.id === listId);
+      if (index === -1) return;
 
-      if (!Array.isArray(listToUpdate.cards)) {
-        listToUpdate.cards = [];
-      }
+      const listToUpdate = updatedLists[index];
       const updatedCards = [
         ...(listToUpdate.cards || []),
-        {
-          name: cardName,
-          date: cardDate,
-          description: cardDescription,
-        },
+        { name: cardName, date: cardDate, description: cardDescription },
       ];
-      updatedLists[listIndex] = {
+      updatedLists[index] = {
         ...listToUpdate,
         cards: updatedCards,
       };
@@ -49,24 +59,25 @@ const DashBoard = () => {
   };
 
   return (
-    <div className="bg-dashboard d-flex d-row align-items-start dashboard">
-      {listLists.map((list, index) => (
-        <ListElement
-          key={index}
-          nameList={list.name}
-          _deleteList={_deleteList}
-          id={index}
-          card={list.cards || []}
-          _setNewCardList={_setNewCardList}
-        />
-      ))}
-      {showCreatorWidget && (
-        <ListCreatorWidget _setNewElementList={_setNewElementList} />
-      )}
-      {!showCreatorWidget && (
-        <NewListButton setShowCreatorWidget={setShowCreatorWidget} />
-      )}
-    </div>
+    <>
+      <div className="bg-dashboard d-flex d-row align-items-start dashboard">
+        {listLists.map((list, index) => (
+          <ListElement
+            nameList={list.name}
+            _deleteList={_deleteList}
+            id={list.id}
+            card={list.cards || []}
+            _setNewCardList={_setNewCardList}
+          />
+        ))}
+        {showCreatorWidget && (
+          <ListCreatorWidget _setNewElementList={_setNewElementList} />
+        )}
+        {!showCreatorWidget && (
+          <NewListButton setShowCreatorWidget={setShowCreatorWidget} />
+        )}
+      </div>
+    </>
   );
 };
 

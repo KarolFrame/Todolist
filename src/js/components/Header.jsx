@@ -7,7 +7,7 @@ const Header = () => {
         <i className="fa-solid fa-desktop"></i> <span></span>KarolDev
       </h3>
       <h5 className="mt-2">
-        Username <i className="fa-solid fa-user"></i>
+        KarolFrame <i className="fa-solid fa-user"></i>
       </h5>
     </>
   );

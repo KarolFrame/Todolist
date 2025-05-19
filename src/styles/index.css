@@ -43,7 +43,6 @@ body {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
-  overflow-y: hidden;
   height: 100vh;
   gap: 1rem;
 }
